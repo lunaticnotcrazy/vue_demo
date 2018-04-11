@@ -15,14 +15,9 @@ export default [{
       path: '/home',
       component: home
     },
-    // {
-    //   path: '/article', 
-    //   component: article 
-    // }, 
     {
-      path: '/article/:article_id', 
-      name:'article',
-      component: article  
+      path: '/article', 
+      component: article 
     }, 
-  ] 
+  ]
 }]

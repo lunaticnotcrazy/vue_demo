@@ -1,0 +1,1 @@
+export const classify = state => state.classify  

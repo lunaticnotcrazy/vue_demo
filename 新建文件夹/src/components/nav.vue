@@ -1,12 +1,9 @@
 <template> 
     <div class="nav-mode-wrap ">
         <div class="nav-mode container" >
-            <div class="nav-item" >
-              <a href="javascript:;" @click.prevent="changeTag()">最新</a></div>
-            <div class="nav-item" v-for="(item,index) in classify" :key="index">
-              <a href="javascript:;" @click.prevent="changeTag(item.classify)">{{item.name}}</a>
-              </div> 
-        </div>         
+            <div class="nav-item">最新</div>
+            <div class="nav-item" v-for="(item,index) in classify" :key="index">{{item.name}}</div> 
+        </div>       
     </div>   
 </template>  
 <script>
@@ -20,7 +17,7 @@ export default {
   methods: {
     // getData: function() {
     //   const that = this;
-    //   axios 
+    //   axios
     //     .get("http://localhost:3010/classify")
     //     .then(function(res) {
     //       console.log(res);
@@ -30,9 +27,6 @@ export default {
     //       console.log(res);
     //     });
     // }
-    changeTag(type){
-      this.$parent.handleChange({'type':type})
-    } 
   },
   mounted() {  
     // this.getData();

@@ -1,9 +1,9 @@
 <template>
     <header id='head_top'>
         <div class="container header">
-          <router-link :to="{path:'/'}" class="logo" title="首页">
+          <div class="logo">
             LL
-          </router-link>
+          </div> 
         <div class="menu">
             <div class="menu-items">
                 首页 
