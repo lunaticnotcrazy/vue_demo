@@ -4,26 +4,20 @@
       <div class="article-container">
         <div class="article-main article-content">
           <div class="article-author"> 
-              <div class="author-thumb">
-              <img src="https://avatars.githubusercontent.com/u/15901239?v=3" alt="">
-              </div>
               <div class="info"> 
-                <div class="name">{{articleDetail.article_id}}</div>
-                <div class="time">{{articleDetail.time}}</div>
+                <div class="name">{{articleDetail[0].source}}</div>
+                <div class="time">{{articleDetail[0].utime}}</div>
               </div>
           </div>
-          <div class="article-title">{{articleDetail.title}}</div>
-          <blockquote>
-            <p>大家好我系渣渣辉我又回来了，为了不太监，我决定把前面两篇文章说要补上的几家公司都补齐全了。（我绝对不是说为了参加掘金的活动才强行补上的）
-            </p></blockquote>
-          <h4 class="heading" data-id="heading-7">公司概况和 JD</h4>
-          <div v-if="!isNoData" v-html="articleDetail.content"> 
-              {{articleDetail.content}}  
-          </div>    
+          
+          <h4 class="heading" data-id="heading-7">{{articleDetail[0].title}}</h4>
+          <div v-if="!isNoData" v-html="articleDetail[0].content"> 
+              <!-- {{articleDetail[0].content}}   -->
+          </div>     
         </div>   
         <div class="article-side"> 
           <div class="article-side-block article-recommend ">
-            <div class="article-side-block-title">
+            <div class="article-side-block-title"> 
                推荐文章  
             </div>
             <a href="" class="article-recommend-item">

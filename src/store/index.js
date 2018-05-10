@@ -28,10 +28,6 @@ const mutations = {
 const getClassifyRequest = () => {
   return axios
     .get("http://47.52.106.96/classify")
-  // .then(res => { 
-  //   const data = res.data
-  //   return data
-  // })
 }
 
 const getArticleListRequest = (data) => {
@@ -87,7 +83,11 @@ const actions = {
     try {  
       const res = await getArticleListRequest(data)
       if (res.status == 200) {
-        console.log(res.data);
+        res.data.map((el)=>{
+          const date = new Date(el.utime);
+          el.utime = date.toLocaleDateString()  
+        })
+        console.log(res.data)
         commit('getArticleList', res.data);
       } else { 
         throw new Error('获取文章列表失败')

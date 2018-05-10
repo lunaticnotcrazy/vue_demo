@@ -15,7 +15,7 @@ const actions = {
   }) { 
     api.get_article_detail(options).then(response => {
       const data = response.data
-      commit(get_article_detail, {
+      commit(get_article_detail, {  
         detail: data
       })  
     })
