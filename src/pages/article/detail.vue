@@ -5,51 +5,24 @@
         <div class="article-main article-content">
           <div class="article-author"> 
               <div class="info"> 
-                <div class="name">{{articleDetail[0].source}}</div>
-                <div class="time">{{articleDetail[0].utime}}</div>
+                <!-- <div class="name">{{articleDetail[0].source}}</div> --> 
+                <div class="time">{{articleDetail.utime}}</div>
               </div>
           </div>
-          
-          <h4 class="heading" data-id="heading-7">{{articleDetail[0].title}}</h4>
-          <div v-if="!isNoData" v-html="articleDetail[0].content"> 
-              <!-- {{articleDetail[0].content}}   -->
+          <h4 class="heading" data-id="heading-7">{{articleDetail.title}}</h4>
+          <div v-if="!isNoData" v-html="articleDetail.content"> 
+              <!-- {{articleDetail[0].content}}   --> 
           </div>     
         </div>   
         <div class="article-side"> 
-          <div class="article-side-block article-recommend ">
-            <div class="article-side-block-title"> 
-               推荐文章  
-            </div>
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-          </div>
-          <div class="article-side-block article-recommend">
-            <div class="article-side-block-title"> 
-               热门文章  
-            </div>
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-            <a href="" class="article-recommend-item">
-              详解JavaScript中的Event Loop（事件循环）机制
-            </a> 
-          </div>
+           <new-side :recommendList="recommendList"></new-side> 
         </div> 
-      </div> 
+      </div>  
   </div>
 </template>
 <script>
 import headTop from "@/components/header/header.vue";
+import newSide from "@/components/newSide.vue";
 
 import { mapState, mapActions } from "vuex";
 
@@ -61,21 +34,23 @@ export default {
     };
   },
   computed: {
-    ...mapState(["articleDetail"])
-  },
+    ...mapState(["articleDetail","recommendList"])
+  }, 
   components: {
-    headTop
+    headTop,
+    newSide,
   },
   methods: {
     // ...mapMutations(["get_article_classify"]),
-    ...mapActions(["getArticleDetail"]),
-  },
+    ...mapActions(["getArticleDetail","getRecommendList"]),
+  }, 
   created() {
     const aid = this.$route.params.article_id
-    this.getArticleDetail({'article_id': aid});
-    console.log(this);
-  },     
-}; 
+    this.getArticleDetail({'article_id': aid,'requestSource':true});
+    this.getRecommendList();
+    console.log(this)
+  },      
+};  
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
 @import "../../assets/css/common";

@@ -2,15 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import api from '../api/'
 
-import axios from "axios";
+import Axios from "../api/http";
+ 
 
-Vue.use(Vuex)
+Vue.use(Vuex) 
 
 const state = {
   classify: [],
   articleList: [],
-  articleDetail:[]
-} 
+  articleDetail: [],
+  recommendList: [],
+  labelList: []
+}
 
 const mutations = {
   getClassify(state, classify) {
@@ -21,26 +24,42 @@ const mutations = {
   },
   getArticleDetail(state, articleDetail) {
     state.articleDetail = articleDetail
-  } 
+  },
+  getRecommendList(state, recommendList) {
+    state.recommendList = recommendList
+  },
+  getLabelList(state, labelList) {
+    state.labelList = labelList
+  }
 }
 
-
+console.log(Axios) 
 const getClassifyRequest = () => {
-  return axios
-    .get("http://47.52.106.96/classify")
+  return Axios
+    .get("classify")
 }
 
 const getArticleListRequest = (data) => {
-  return axios 
-  .get("http://47.52.106.96/articleList",{params:data})
-}
+  return Axios
+    .get("articleList", data)  
+}   
 
 const getArticleDetailRequest = (data) => {
-  return axios 
-  .get("http://47.52.106.96/article/",{params:data})
+  return Axios
+    .get("article/", {
+      params: data
+    })
+}
+const getRecommendListRequest = (data) => {
+  return Axios
+    .get("recommend/", data)
+}
+const getLabelLisRequest = (data) => {
+  return Axios
+    .get("label/", data)  
 }
 
- 
+
 
 // const actions = {
 //   async getClassify({
@@ -74,49 +93,79 @@ const actions = {
         throw new Error('获取分类类目失败')
       }
     } catch (err) {
+      console.log(err) 
       console.log('您尚未登陆或者session失效')
     }
   },
   async getArticleList({
     commit
-  },data) { 
-    try {  
+  }, data) {
+    try {
       const res = await getArticleListRequest(data)
       if (res.status == 200) {
-        res.data.map((el)=>{
+        res.data.map((el) => {
           const date = new Date(el.utime);
-          el.utime = date.toLocaleDateString()  
+          el.utime = date.toLocaleDateString()
         })
         console.log(res.data)
         commit('getArticleList', res.data);
-      } else { 
+      } else {
         throw new Error('获取文章列表失败')
       }
-    } catch (err) {  
+    } catch (err) {
       console.log('您尚未登陆或者session失效')
     }
   },
   async getArticleDetail({
     commit
-  },data) { 
-    try { 
-      console.log(data) 
+  }, data) {
+    try {
+      console.log(data)
       const res = await getArticleDetailRequest(data)
       if (res.status == 200) {
         console.log(res.data);
         commit('getArticleDetail', res.data);
-      } else {  
+      } else {
         throw new Error('获取文章失败')
       }
-    } catch (err) {  
+    } catch (err) {
+      console.log('您尚未登陆或者session失效')
+    }
+  },
+  async getRecommendList({
+    commit
+  }, data) {
+    try {
+      const res = await getRecommendListRequest(data)
+      if (res.status == 200) {
+        console.log(res.data);
+        commit('getRecommendList', res.data);
+      } else {
+        throw new Error('获取文章失败')
+      }
+    } catch (err) {
+      console.log('您尚未登陆或者session失效')
+    }
+  },
+  async getLabelList({
+    commit
+  }, data) {
+    try {
+      const res = await getLabelLisRequest(data)
+      if (res.status == 200) {
+        console.log(res.data);
+        commit('getLabelList', res.data);
+      } else {
+        throw new Error('获取文章失败')
+      }
+    } catch (err) {
       console.log('您尚未登陆或者session失效')
     }
   }
 }
 
-export default new Vuex.Store({ 
+export default new Vuex.Store({
   state,
   actions,
   mutations,
 })
- 

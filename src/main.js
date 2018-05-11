@@ -6,13 +6,15 @@ import App from './App'
 import store from './store/index'
 import routes from './router' 
 import Element from 'element-ui';
+import { List } from 'vant';
 
 import '@/assets/css/index.less'
  
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-Vue.use(Element)
-  
+Vue.use(Element)  
+ 
+Vue.use(List);
 const router = new VueRouter({
   routes,
   mode:'hash'
