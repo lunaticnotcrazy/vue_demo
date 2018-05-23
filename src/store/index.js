@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 // import api from '../api/'
 
 import Axios from "../api/http";
- 
 
-Vue.use(Vuex) 
+
+Vue.use(Vuex)
 
 const state = {
   classify: [],
@@ -14,6 +14,8 @@ const state = {
   recommendList: [],
   labelList: []
 }
+
+
 
 const mutations = {
   getClassify(state, classify) {
@@ -30,10 +32,17 @@ const mutations = {
   },
   getLabelList(state, labelList) {
     state.labelList = labelList
+  },
+  setArticleList(state, articleMore) {
+    console.log('commit setArticle')
+    state.articleList = articleMore
+  },
+  pushArticleList(state, articleMore) {
+    state.articleList.push(...articleMore)
   }
 }
 
-console.log(Axios) 
+console.log(Axios)
 const getClassifyRequest = () => {
   return Axios
     .get("classify")
@@ -41,8 +50,8 @@ const getClassifyRequest = () => {
 
 const getArticleListRequest = (data) => {
   return Axios
-    .get("articleList", data)  
-}   
+    .get("articleList", data)
+}
 
 const getArticleDetailRequest = (data) => {
   return Axios
@@ -56,29 +65,8 @@ const getRecommendListRequest = (data) => {
 }
 const getLabelLisRequest = (data) => {
   return Axios
-    .get("label/", data)  
+    .get("label/", data)
 }
-
-
-
-// const actions = {
-//   async getClassify({
-//     commit
-//   }) {
-//     try {
-//       const res = await getClassifyRequest()
-//       if (res.status == 200) {
-//         console.log(res.data);
-//         commit('getClassify', res.data);
-//       } else {
-//         throw new Error('2')
-//       }
-//     } catch (err) {
-//       console.log('您尚未登陆或者session失效')
-//     }
-//   }
-//   // async getArticleList({commit})
-// }
 
 const actions = {
   async getClassify({
@@ -93,7 +81,7 @@ const actions = {
         throw new Error('获取分类类目失败')
       }
     } catch (err) {
-      console.log(err) 
+      console.log(err)
       console.log('您尚未登陆或者session失效')
     }
   },
@@ -161,6 +149,48 @@ const actions = {
     } catch (err) {
       console.log('您尚未登陆或者session失效')
     }
+  },
+  async getArticleListMore({
+    commit
+  }, data) {
+    try {
+      const res = await getArticleListRequest(data)
+      if (res.status == 200) {
+        commit('setArticleList', res.data);
+        return new Promise((resolve) => { 
+          resolve(res.data)
+        })
+      } else {
+        throw new Error('获取文章失败')
+      }
+    } catch (err) {
+      console.log('您尚未登陆或者session失效')
+    }
+  },
+  async pushArticleListMore({
+    commit
+  }, data) {
+    try {
+      const res = await getArticleListRequest(data)
+      if (res.status == 200) {
+        commit('pushArticleList', res.data);
+        return new Promise((resolve) => {
+          resolve(res.data)
+        })
+      } else {
+        throw new Error('获取文章失败')
+      }
+    } catch (err) {
+      console.log('您尚未登陆或者session失效')
+    }
+  }
+}
+const getters = {
+  setArticleList: function (data) {
+    state.articleList = data
+  },
+  pushArticleList: function () {
+    state.articleList.push(...data)
   }
 }
 
@@ -168,4 +198,5 @@ export default new Vuex.Store({
   state,
   actions,
   mutations,
+  getters
 })
