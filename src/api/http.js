@@ -1,8 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
 
-const BASERUL = 'http://47.52.106.96/'
-
+const BASERUL = 'http://47.52.106.96:8080'
+ 
 axios.interceptors.request.use(config => {
   // loading
   return config

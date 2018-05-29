@@ -34,7 +34,6 @@ const mutations = {
     state.labelList = labelList
   },
   setArticleList(state, articleMore) {
-    console.log('commit setArticle')
     state.articleList = articleMore
   },
   pushArticleList(state, articleMore) {
@@ -42,8 +41,7 @@ const mutations = {
   }
 }
 
-console.log(Axios)
-const getClassifyRequest = () => {
+const getClassifyRequest = () => { 
   return Axios
     .get("classify")
 }
@@ -55,10 +53,8 @@ const getArticleListRequest = (data) => {
 
 const getArticleDetailRequest = (data) => {
   return Axios
-    .get("article/", {
-      params: data
-    })
-}
+    .get("article/", data)
+} 
 const getRecommendListRequest = (data) => {
   return Axios
     .get("recommend/", data)
